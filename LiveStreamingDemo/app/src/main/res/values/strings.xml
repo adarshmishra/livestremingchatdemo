@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">LiveStreamingDemo</string>
+    <string name="text_launch_video" >Launch Video With Chat</string>
+</resources>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+android:id="@+id/text_message_incoming"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:background="@drawable/outgoing_text"
+android:lineSpacingExtra="2dp"
+android:layout_marginBottom="20dp"
+android:paddingBottom="10dp"
+android:paddingLeft="10dp"
+android:paddingRight="20dp"
+android:paddingTop="4dp"
+android:text="Hi, How are you?"
+android:textColor="@color/colorBlack"
+android:textSize="13.5dp"
+/>
