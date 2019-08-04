@@ -6,30 +6,66 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <FrameLayout
+        android:id="@+id/home_container"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+
+        >
+
+        <com.applozic.livestreamingdemo.IntroVideoSurfaceView
+            android:id="@+id/surface"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+
+    </FrameLayout>
     <RelativeLayout
         android:layout_width="200dp"
-        android:layout_height="wrap_content"
+        android:layout_height="466dp"
         android:layout_margin="20dp"
         android:layout_marginBottom="50dp"
-        android:layout_marginLeft="236dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@color/apploizc_transparent_color"
+        app:layout_constraintBottom_toTopOf="@+id/edit_text_linear_layout"
         app:layout_constraintRight_toRightOf="parent">
 
-        <ListView
+        <android.support.v7.widget.RecyclerView
             android:id="@+id/chat_list_view"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:visibility="visible"
-            android:fadingEdge="horizontal"
-            android:fadingEdgeLength="30dp"
-            android:fillViewport="false"
-            android:scrollbars="none"
+            android:layout_alignParentStart="false"
+            android:layout_marginBottom="0dp"
             android:divider="@null"
             android:dividerHeight="0dp"
+            android:fadingEdge="horizontal"
+            android:fadingEdgeLength="100dp"
+            android:fillViewport="false"
+            android:background="@color/apploizc_transparent_color"
+            android:requiresFadingEdge="vertical"
+            android:scrollbars="none"
             android:transcriptMode="alwaysScroll"
-            android:stackFromBottom="true"
-            android:requiresFadingEdge="vertical"/>
+            android:visibility="visible"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:orientation="vertical"
+        android:id="@+id/edit_text_linear_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        >
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/round_edittext"
+            android:padding="10dp" />
     </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>

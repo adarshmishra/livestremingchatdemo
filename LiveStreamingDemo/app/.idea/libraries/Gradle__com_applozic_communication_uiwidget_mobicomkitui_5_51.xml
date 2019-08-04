@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.applozic.communication.uiwidget:mobicomkitui-5.51">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/mobicomkitui-5.51.aar/870a53ab35c2d3a92122a8763b123fd7/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/mobicomkitui-5.51.aar/870a53ab35c2d3a92122a8763b123fd7/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.applozic.communication.uiwidget/mobicomkitui/5.51/d40af702afe5515ef777c3fb93c37f48963324b1/mobicomkitui-5.51-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
