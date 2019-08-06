@@ -11,8 +11,9 @@
         android:theme="@style/Applozic_FullScreen_Theme">
         <activity android:name=".MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
+                <action android:name="android.intent.action.MAIN"
+                    android:windowSoftInputMode="adjustResize"
+                    android:configChanges="orientation|keyboard|keyboardHidden"/>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

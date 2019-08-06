@@ -20,9 +20,10 @@
             />
 
     </FrameLayout>
+
     <RelativeLayout
         android:layout_width="200dp"
-        android:layout_height="466dp"
+        android:layout_height="300dp"
         android:layout_margin="20dp"
         android:layout_marginBottom="50dp"
         android:background="@color/apploizc_transparent_color"
@@ -36,12 +37,12 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentStart="false"
             android:layout_marginBottom="0dp"
+            android:background="@color/apploizc_transparent_color"
             android:divider="@null"
             android:dividerHeight="0dp"
             android:fadingEdge="horizontal"
             android:fadingEdgeLength="100dp"
             android:fillViewport="false"
-            android:background="@color/apploizc_transparent_color"
             android:requiresFadingEdge="vertical"
             android:scrollbars="none"
             android:transcriptMode="alwaysScroll"
@@ -58,14 +59,42 @@
         app:layout_constraintRight_toRightOf="parent"
         >
 
+        <com.like.LikeButton
+            android:id="@+id/clap_image"
+            android:layout_width="60dp"
+            android:layout_height="47dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="0dp"
+            app:anim_scale_factor="2"
+            app:circle_end_color="@color/colorAccent"
+            app:dots_primary_color="@color/colorAccent"
+            app:dots_secondary_color="@color/colorPrimary"
+            app:icon_type="heart"
+            app:liked="false" />
+
+
         <EditText
-            android:layout_width="match_parent"
+            android:id="@+id/message_edit_text"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="15dp"
+            android:layout_toRightOf="@+id/clap_image"
             android:background="@drawable/round_edittext"
+            android:textColor="@color/colorBlack"
             android:padding="10dp" />
+
+        <ImageView
+            android:id="@+id/message_send_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="21dp"
+            app:srcCompat="@drawable/mobicom_ic_action_send_now" />
+
     </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>

@@ -1,6 +1,7 @@
 package com.applozic.livestreamingdemo;
 
 import android.content.Context;
+import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -8,6 +9,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -19,6 +23,7 @@ import com.applozic.mobicomkit.api.account.register.RegistrationResponse;
 import com.applozic.mobicomkit.api.account.user.User;
 import com.applozic.mobicomkit.api.conversation.ApplozicConversation;
 import com.applozic.mobicomkit.api.conversation.Message;
+import com.applozic.mobicomkit.api.conversation.MessageBuilder;
 import com.applozic.mobicomkit.broadcast.AlEventManager;
 import com.applozic.mobicomkit.channel.service.ChannelService;
 import com.applozic.mobicomkit.exception.ApplozicException;
@@ -26,6 +31,8 @@ import com.applozic.mobicomkit.listners.AlLoginHandler;
 import com.applozic.mobicomkit.listners.ApplozicUIListener;
 import com.applozic.mobicomkit.listners.MessageListHandler;
 import com.applozic.mobicommons.people.channel.Channel;
+import com.like.LikeButton;
+import com.plattysoft.leonids.ParticleSystem;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -35,6 +42,10 @@ public class MainActivity extends AppCompatActivity implements ApplozicUIListene
 
 
     Button launchButton;
+    ImageView sendMessageView;
+    LikeButton clapButton;
+
+    EditText messageEditBox;
 
     public static String App_ID = "applozic-sample-app";
     List<Message> messageList =  new ArrayList<Message>();
@@ -49,6 +60,39 @@ public class MainActivity extends AppCompatActivity implements ApplozicUIListene
         setContentView(R.layout.activity_main);
         loginUser(this);
         listView = findViewById(R.id.chat_list_view);
+        sendMessageView = findViewById(R.id.message_send_button);
+        clapButton = findViewById(R.id.clap_image);
+        messageEditBox = findViewById(R.id.message_edit_text);
+        setOnClickListener();
+
+    }
+
+    private void setOnClickListener() {
+        sendMessageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+              if(messageEditBox.getText().length() > 0){
+                  new MessageBuilder(getApplicationContext()).setMessage(messageEditBox.getText().toString()).setGroupId(CHANNEL_KEY).send();
+                  messageEditBox.setText("");
+              }
+
+            }
+        });
+
+        clapButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new MessageBuilder(getApplicationContext()).setMessage("LIKE").setGroupId(CHANNEL_KEY).send();
+                clapButton.setLiked(true);
+            }
+        });
+
+    }
+
+    private void animateLike() {
+        new ParticleSystem(MainActivity.this, 10000, R.drawable.star_pink, 20000)
+                .setSpeedRange(0.2f, 0.5f)
+                .oneShot(findViewById(R.id.chat_list_view), 100);
     }
 
 
@@ -98,6 +142,8 @@ public class MainActivity extends AppCompatActivity implements ApplozicUIListene
                     adapter= new ApplozicMessageAdapter(getBaseContext(),messageList);
                     listView.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
+                    listView.setEnabled(false);
+                    listView.smoothScrollToPosition(messageList.size()-1);
 
                 }else{
                     //error in fetching messages
@@ -119,13 +165,23 @@ public class MainActivity extends AppCompatActivity implements ApplozicUIListene
     @Override
     public void onMessageSent(Message message) {
         Log.i("MainActivity", "onMessageSent: " +message );
-
+        messageList.add(message);
+        adapter.notifyDataSetChanged();
+        listView.setEnabled(false);
+        listView.smoothScrollToPosition(messageList.size()-1);
+        if(message.getMessage().equalsIgnoreCase("LIKE")){
+            animateLike();
+        }
     }
 
     @Override
     public void onMessageReceived(Message message) {
 
         Log.i("MainActivity", "onMessageReceived: " +message );
+
+        if(message.getMessage().equalsIgnoreCase("LIKE")){
+             animateLike();
+        }
         messageList.add(message);
         adapter.notifyDataSetChanged();
         listView.setEnabled(false);
