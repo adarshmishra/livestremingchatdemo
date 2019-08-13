@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements ApplozicUIListene
         clapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new MessageBuilder(getApplicationContext()).setMessage("LIKE").setGroupId(CHANNEL_KEY).send();
+                new MessageBuilder(getApplicationContext()).setMessage("❤️").setGroupId(CHANNEL_KEY).send();
                 clapButton.setLiked(true);
             }
         });

@@ -1,20 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-android:id="@+id/text_message_incoming"
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:background="@drawable/outgoing_text"
-android:lineSpacingExtra="2dp"
-android:layout_marginBottom="20dp"
-android:paddingBottom="10dp"
-android:paddingLeft="10dp"
-android:paddingRight="20dp"
-android:layout_gravity="end"
-android:textAlignment="viewEnd"
-android:layout_alignParentRight="true"
-android:paddingTop="4dp"
-android:text="Hi, How are you?"
-android:textColor="@color/colorBlack"
-android:textSize="13.5dp"
-/>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/outgoing_text"
+    android:orientation="vertical">
+
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/text_user_dispalyname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_gravity="start"
+        android:lineSpacingExtra="2dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="4dp"
+        android:text="My display Name"
+        android:textAlignment="viewStart"
+        android:fontFamily="casual"
+        android:textColor="@color/colorAccent"
+        android:textSize="15dp"
+        />
+
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/text_message_incoming"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="start"
+        android:layout="@+id/text_user_dispalyname"
+        android:lineSpacingExtra="2dp"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="4dp"
+        android:text="Hi, How are you?"
+        android:textAlignment="viewStart"
+        android:textColor="@color/colorBlack"
+        android:textSize="13.5dp"
+        />
+
+
+</LinearLayout>

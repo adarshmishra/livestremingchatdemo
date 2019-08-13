@@ -16,8 +16,7 @@
         <com.applozic.livestreamingdemo.IntroVideoSurfaceView
             android:id="@+id/surface"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            />
+            android:layout_height="match_parent" />
 
     </FrameLayout>
 
@@ -50,23 +49,18 @@
             app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
     </RelativeLayout>
 
-    <RelativeLayout
-        android:orientation="vertical"
+    <LinearLayout
         android:id="@+id/edit_text_linear_layout"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        >
+        tools:layout_editor_absoluteX="114dp">
 
         <com.like.LikeButton
             android:id="@+id/clap_image"
             android:layout_width="60dp"
-            android:layout_height="47dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="0dp"
+            android:layout_height="60dp"
             app:anim_scale_factor="2"
             app:circle_end_color="@color/colorAccent"
             app:dots_primary_color="@color/colorAccent"
@@ -77,24 +71,27 @@
 
         <EditText
             android:id="@+id/message_edit_text"
-            android:layout_width="200dp"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
-            android:layout_marginLeft="15dp"
+            android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/clap_image"
             android:background="@drawable/round_edittext"
-            android:textColor="@color/colorBlack"
-            android:padding="10dp" />
+            android:padding="10dp"
+
+            android:textColor="@color/colorBlack" />
 
         <ImageView
             android:id="@+id/message_send_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="21dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_alignEnd="@+id/message_edit_text"
+            android:layout_alignParentTop="true"
             app:srcCompat="@drawable/mobicom_ic_action_send_now" />
 
-    </RelativeLayout>
+
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
