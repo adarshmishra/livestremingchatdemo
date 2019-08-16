@@ -1,24 +1,18 @@
 package com.applozic.livestreamingdemo;
 
 import android.content.Context;
-import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.applozic.mobicomkit.Applozic;
-import com.applozic.mobicomkit.api.ApplozicMqttService;
 import com.applozic.mobicomkit.api.account.register.RegistrationResponse;
 import com.applozic.mobicomkit.api.account.user.User;
 import com.applozic.mobicomkit.api.conversation.ApplozicConversation;
@@ -49,8 +43,9 @@ public class MainActivity extends AppCompatActivity implements ApplozicUIListene
 
     public static String App_ID = "applozic-sample-app";
     List<Message> messageList =  new ArrayList<Message>();
-    RecyclerView listView =null;
+    RecyclerView recyclerView =null;
     ApplozicMessageAdapter adapter =null;
+    LinearLayoutManager layoutManager;
     public static final Integer CHANNEL_KEY = 24049394;
 
 
@@ -59,10 +54,13 @@ public class MainActivity extends AppCompatActivity implements ApplozicUIListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         loginUser(this);
-        listView = findViewById(R.id.chat_list_view);
+        recyclerView = findViewById(R.id.chat_list_view);
         sendMessageView = findViewById(R.id.message_send_button);
         clapButton = findViewById(R.id.clap_image);
         messageEditBox = findViewById(R.id.message_edit_text);
+        layoutManager = new LinearLayoutManager(MainActivity.this);
+        layoutManager.setStackFromEnd(true);
+        recyclerView.setLayoutManager(layoutManager);
         setOnClickListener();
 
     }
@@ -134,16 +132,20 @@ public class MainActivity extends AppCompatActivity implements ApplozicUIListene
 
         ApplozicConversation.getMessageListForChannel(getBaseContext(), CHANNEL_KEY, createdAtTime, new MessageListHandler() {
             @Override
-            public void onResult(List<Message> messageListForChannel, ApplozicException e) {
+            public void onResult(final List<Message> messageListForChannel, ApplozicException e) {
                 if(e == null){
 
-                    Toast.makeText(MainActivity.this, "List Loaded",Toast.LENGTH_LONG).show();
-                    messageList = messageListForChannel;
-                    adapter= new ApplozicMessageAdapter(getBaseContext(),messageList);
-                    listView.setAdapter(adapter);
-                    adapter.notifyDataSetChanged();
-                    listView.setEnabled(false);
-                    listView.smoothScrollToPosition(messageList.size()-1);
+                    MainActivity.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(MainActivity.this, "List Loaded",Toast.LENGTH_LONG).show();
+                            messageList = messageListForChannel;
+                            adapter = new ApplozicMessageAdapter(getBaseContext(),messageList);
+                            recyclerView.setAdapter(adapter);
+                            adapter.notifyDataSetChanged();
+                            recyclerView.setEnabled(false);
+                        }
+                    });
 
                 }else{
                     //error in fetching messages
@@ -167,8 +169,8 @@ public class MainActivity extends AppCompatActivity implements ApplozicUIListene
         Log.i("MainActivity", "onMessageSent: " +message );
         messageList.add(message);
         adapter.notifyDataSetChanged();
-        listView.setEnabled(false);
-        listView.smoothScrollToPosition(messageList.size()-1);
+        recyclerView.setEnabled(false);
+        recyclerView.smoothScrollToPosition(messageList.size()-1);
         if(message.getMessage().equalsIgnoreCase("LIKE")){
             animateLike();
         }
@@ -184,8 +186,8 @@ public class MainActivity extends AppCompatActivity implements ApplozicUIListene
         }
         messageList.add(message);
         adapter.notifyDataSetChanged();
-        listView.setEnabled(false);
-        listView.smoothScrollToPosition(messageList.size()-1);
+        recyclerView.setEnabled(false);
+        recyclerView.smoothScrollToPosition(messageList.size()-1);
 
 
 
@@ -238,6 +240,9 @@ public class MainActivity extends AppCompatActivity implements ApplozicUIListene
 
     @Override
     public void onMqttDisconnected() {
+        Applozic.connectPublish(this);
+        Channel channel = ChannelService.getInstance(this).getChannel(CHANNEL_KEY);
+        Applozic.subscribeToTyping(getApplicationContext(), channel , null);
 
     }
 
